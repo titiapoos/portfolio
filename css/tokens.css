@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Tokens : palette, thème clair et sombre, espacements, typographie, ombres.
+   Tout le site se règle ici. Les autres fichiers CSS n'écrivent aucune couleur
+   en dur, sauf le rideau des projets (components/panel.css).
+   ========================================================================== */
+
+:root {
+  /* --- Palette (les quatre couleurs de départ + deux aides) --- */
+  --jungle-teal: #6b9080;
+  --alabaster: #d8e2dc;
+  --pastel-pink: #ffcad4;
+  --cherry-blossom: #f4acb7;
+  --sand: #e8d5c5;
+  --sage-soft: #a9c1b3;
+  --on-accent: #1e1917; /* texte posé sur une couleur de la palette */
+
+  /* --- Typographie --- */
+  --font-display:
+    "Bagel Fat One", "Arial Rounded MT Bold", "Hanken Grotesk", system-ui,
+    sans-serif;
+  --font-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-body);
+
+  /* --- Espacements et formes --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 56px;
+  --space-8: 112px;
+  --radius-sm: 10px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+  --bw: 0px;
+
+  /* --- Mouvement --- */
+  --dur-fast: 160ms;
+  --dur: 340ms;
+  --dur-slow: 900ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Parcours du CV : les ciseaux et leurs mots (lus par js/cv.js) --- */
+  --cv-mover: scissors;
+  --cv-rot: 1;
+  --cv-lift: 0;
+  --cv-goal: burst;
+  --cv-gain: "+1 étape";
+  --cv-win: "Bravo !";
+  --cv-step: 1;
+  --cv-unit: "Étapes";
+  --cv-hint: "Défile pour découper ↓";
+  --cv-done: "Tout est découpé · continue ↓";
+}
+
+/* --- Thème clair (par défaut) : papier vert pâle, feuille du hero rose --- */
+:root,
+:root[data-theme="light"] {
+  --surface: #e6eee9;
+  --surface-raised: #f8fbf9;
+  --surface-sunken: #d3dfd8;
+  --ink: #20322a;
+  --ink-muted: #46594e;
+  --line: #c3d2c9;
+  --line-strong: #7d9a8b;
+  --focus: #20322a;
+  --paper: #f6eee7;
+
+  --shadow-rgb: 27, 48, 38; /* teinte des ombres, en r,g,b */
+  --shade: rgba(var(--shadow-rgb), 0.36);
+  --shadow-pop:
+    0 2px 0 rgba(var(--shadow-rgb), 0.07), 0 22px 30px -20px var(--shade);
+  --shadow-soft: 0 28px 40px -26px var(--shade);
+  --shadow-panel: -24px 0 50px -28px rgba(42, 57, 50, 0.55);
+
+  /* Rôles de couleur : qui structure (sauge ou rose), qui agit. */
+  --sheet: var(--pastel-pink); /* la grande feuille du hero */
+  --tape: rgba(244, 172, 183, 0.75); /* ruban adhésif */
+  --highlight: var(--pastel-pink); /* pastille surlignée */
+  --badge: var(--pastel-pink); /* disque « Salut » */
+  --hero-ink: var(--ink); /* texte posé sur la feuille du hero */
+
+  /* Formes du hero (c1 à c4) */
+  --c1: var(--jungle-teal);
+  --c2: var(--cherry-blossom);
+  --c3: var(--alabaster);
+  --c4: var(--surface-raised);
+  /* Pastilles des outils (t1 à t4) */
+  --t1: var(--cherry-blossom);
+  --t2: var(--jungle-teal);
+  --t3: var(--pastel-pink);
+  --t4: var(--sage-soft);
+  /* Lignes de contact (k1 à k3) */
+  --k1: var(--cherry-blossom);
+  --k2: var(--sage-soft);
+  --k3: var(--pastel-pink);
+  /* Cartes projet (p1 à p4) */
+  --p1: var(--cherry-blossom);
+  --p2: var(--jungle-teal);
+  --p3: var(--pastel-pink);
+  --p4: var(--alabaster);
+}
+
+/* --- Thème nuit : le papier prend la teinte, la palette ne change pas --- */
+:root[data-theme="dark"] {
+  --surface: #121c17;
+  --surface-raised: #1c2a23;
+  --surface-sunken: #0d1411;
+  --ink: #e8f1ec;
+  --ink-muted: #b4c9bd;
+  --line: #2d4036;
+  --line-strong: #6f8f7f;
+  --focus: #d8e2dc;
+  --paper: #f6eee7;
+
+  --shadow-rgb: 0, 0, 0;
+  --shade: rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 2px 0 rgba(0, 0, 0, 0.25), 0 22px 30px -20px var(--shade);
+  --shadow-soft: 0 28px 40px -26px var(--shade);
+  --shadow-panel: -24px 0 50px -28px rgba(42, 57, 50, 0.55);
+
+  --sheet: #4a2f38;
+  --tape: rgba(244, 172, 183, 0.32);
+  --highlight: var(--pastel-pink);
+  --badge: var(--pastel-pink);
+  --hero-ink: var(--ink);
+
+  --c1: var(--jungle-teal);
+  --c2: #9a5766;
+  --c3: var(--sage-soft);
+  --c4: #5d3d48;
+  --t1: var(--cherry-blossom);
+  --t2: var(--jungle-teal);
+  --t3: var(--pastel-pink);
+  --t4: var(--sage-soft);
+  --k1: var(--cherry-blossom);
+  --k2: var(--sage-soft);
+  --k3: var(--pastel-pink);
+  --p1: var(--cherry-blossom);
+  --p2: var(--jungle-teal);
+  --p3: var(--pastel-pink);
+  --p4: var(--sage-soft);
+}

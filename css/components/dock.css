@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Panneau de réglages (js/dock.js) : mode nuit et grille de repérage.
+   Grand écran : boutons à plat en bas à gauche.
+   Moins de 1180px : un seul bouton rond en bas à droite qui déplie le reste.
+   ========================================================================== */
+
+.dock {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 260;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  max-width: calc(100vw - 36px);
+}
+
+.dock button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-pop);
+  font: 700 13px/1 var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background var(--dur-fast);
+}
+
+.dock button:hover {
+  background: var(--jungle-teal);
+  color: var(--on-accent);
+  transform: translateY(-3px) rotate(-1.5deg);
+}
+
+/* Bouton rond qui ouvre le panneau (visible seulement quand le panneau est replié) */
+.dock__t {
+  display: none;
+}
+.dock .dock__t::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  background: currentColor;
+  -webkit-mask: var(--ic-sliders) center/contain no-repeat;
+  mask: var(--ic-sliders) center/contain no-repeat;
+}
+
+/* Sur écran tactile, la grille de repérage n'a pas de touche G : on la cache */
+@media (pointer: coarse) {
+  .dock [data-act="grid"] {
+    display: none;
+  }
+}
+
+@media (max-width: 1179px) {
+  .dock {
+    left: auto;
+    right: 12px;
+    bottom: 88px; /* au-dessus de la barre de navigation du bas */
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    max-width: none;
+  }
+  .dock .dock__t {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    min-height: 46px;
+    padding: 0;
+  }
+  .dock:not(.is-open) button:not(.dock__t) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .dock {
+    bottom: 86px;
+  }
+}

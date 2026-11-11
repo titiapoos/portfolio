@@ -1,0 +1,199 @@
+/* ==========================================================================
+   tools.css
+   Outils : puces de couleur à trame, niveau en points (js/tools.js).
+   ========================================================================== */
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+.tool {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface-raised);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop);
+  transition:
+    transform var(--dur) var(--spring),
+    box-shadow var(--dur) var(--ease);
+}
+.tool:hover {
+  transform: translate(-4px, -4px) rotate(-0.8deg);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+.tool__chip {
+  position: relative;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  background: var(--c);
+  border-bottom: var(--bw) solid var(--ink);
+}
+.tool:nth-child(4n + 1) {
+  --c: var(--cherry-blossom);
+}
+.tool:nth-child(4n + 2) {
+  --c: var(--sand);
+}
+.tool:nth-child(4n + 3) {
+  --c: var(--jungle-teal);
+}
+.tool:nth-child(4n) {
+  --c: var(--sage-soft);
+}
+.tool__chip svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.tool__chip circle {
+  fill: var(--on-accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.6s var(--spring);
+  transition-delay: calc(var(--i) * 12ms);
+}
+.tool:hover .tool__chip circle {
+  transform: scale(1.35);
+}
+.tool__mono {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border: var(--bw) solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: 800 28px/1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.tool__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+.tool__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.lv {
+  display: flex;
+  gap: var(--space-1);
+}
+.lv i {
+  width: 14px;
+  height: 14px;
+  border: var(--bw) solid var(--ink);
+  border-radius: 50%;
+}
+.lv i.on {
+  background: var(--ink);
+}
+/* Outils : des étiquettes de papier, un galet blanc pour chaque logiciel */
+.tools {
+  gap: 28px;
+}
+.tool {
+  border: 0;
+  border-radius: 30px;
+  box-shadow: var(--shadow-pop);
+  transition:
+    transform var(--dur) var(--spring),
+    box-shadow var(--dur) var(--ease);
+}
+.tool:nth-child(odd) {
+  rotate: -0.8deg;
+}
+.tool:nth-child(even) {
+  rotate: 0.8deg;
+}
+.tool:hover {
+  transform: translateY(-8px);
+  rotate: 0deg;
+  box-shadow:
+    0 2px 0 rgba(var(--shadow-rgb), 0.07),
+    0 32px 38px -22px var(--shade);
+}
+.tool:nth-child(4n + 1) {
+  --c: var(--t1);
+}
+.tool:nth-child(4n + 2) {
+  --c: var(--t2);
+}
+.tool:nth-child(4n + 3) {
+  --c: var(--t3);
+}
+.tool:nth-child(4n) {
+  --c: var(--t4);
+}
+.tool__chip {
+  height: 142px;
+  border: 0;
+  overflow: hidden;
+}
+.tool__chip svg {
+  display: none;
+}
+.tool__chip::before {
+  content: "";
+  position: absolute;
+  right: -34px;
+  top: -46px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255, 252, 251, 0.34);
+}
+.tool__chip::after {
+  content: "";
+  position: absolute;
+  left: -26px;
+  bottom: -40px;
+  width: 96px;
+  height: 96px;
+  border-radius: 30px;
+  rotate: 18deg;
+  background: rgba(255, 252, 251, 0.26);
+}
+.tool:nth-child(even) .tool__chip::before {
+  border-radius: 34px;
+  rotate: 24deg;
+  right: -20px;
+}
+.tool:nth-child(3n) .tool__chip::after {
+  border-radius: 50%;
+}
+.tool__mono {
+  width: 84px;
+  height: 84px;
+  border: 0;
+  background: var(--surface-raised);
+  font: 400 30px/1 var(--font-display);
+  letter-spacing: 0;
+  box-shadow: 0 8px 14px -6px rgba(42, 57, 50, 0.4);
+  rotate: -6deg;
+  transition: rotate 0.5s var(--spring);
+}
+.tool:hover .tool__mono {
+  rotate: 6deg;
+}
+.tool__body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+.lv i {
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--ink);
+}
+.tool:hover .tool__chip circle {
+  transform: none;
+}

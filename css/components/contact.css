@@ -1,0 +1,494 @@
+/* ==========================================================================
+   contact.css
+   Contact : lignes cliquables et bouton rond « Télécharger mon CV » en forme
+   de fleur.
+   ========================================================================== */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: center;
+}
+.crows {
+  display: flex;
+  flex-direction: column;
+}
+.crow {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 26px var(--space-4);
+  border-top: var(--bw) solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.crow:last-child {
+  border-bottom: var(--bw) solid var(--ink);
+}
+.crow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c, var(--jungle-teal));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s var(--ease);
+}
+.crow:nth-child(2) {
+  --c: var(--cherry-blossom);
+}
+.crow:nth-child(3) {
+  --c: var(--pastel-pink);
+}
+.crow:hover {
+  color: var(--on-accent);
+}
+.crow:hover::before {
+  transform: scaleY(1);
+}
+.crow:hover .mono {
+  color: var(--on-accent);
+}
+.crow__t {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.crow strong {
+  font: 700 36px/40px var(--font-display);
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+.crow .arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: var(--bw) solid currentColor;
+  border-radius: 50%;
+  font: 700 22px/1 var(--font-display);
+  transition: transform 0.4s var(--spring);
+}
+.crow:hover .arrow {
+  transform: rotate(45deg);
+}
+.cvwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+.cvbtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 280px;
+  height: 280px;
+  border: var(--bw) solid var(--ink);
+  border-radius: 50%;
+  background: var(--jungle-teal);
+  color: var(--on-accent);
+  text-decoration: none;
+  box-shadow: var(--shadow-pop);
+  transition:
+    transform 0.35s var(--spring),
+    box-shadow 0.3s;
+}
+.cvbtn:hover {
+  box-shadow: 12px 12px 0 var(--ink);
+}
+.cvbtn:active {
+  transform: scale(0.95);
+}
+.cvbtn {
+  overflow: clip;
+  max-width: 100%;
+}
+.cvbtn svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spin 20s linear infinite;
+}
+.cvbtn text {
+  font: 600 15px var(--font-mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  fill: var(--on-accent);
+}
+.cvbtn b {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  border: var(--bw) solid var(--ink);
+  border-radius: 50%;
+  background: var(--pastel-pink);
+  font: 700 54px/1 var(--font-display);
+  transition: transform 0.4s var(--spring);
+}
+.cvbtn:hover b {
+  transform: translateY(8px);
+}
+@media (max-width: 860px) {
+  .contact {
+    grid-template-columns: 1fr;
+  }
+  .crow strong {
+    font-size: 28px;
+    line-height: 34px;
+  }
+}
+/* Contact : des languettes de papier, un tampon dentelé pour le CV */
+.crows {
+  gap: 14px;
+}
+.crow {
+  border: 0;
+  border-radius: 30px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-pop);
+  padding: 24px 30px;
+}
+.crow:last-child {
+  border: 0;
+}
+.crow:nth-child(1) {
+  --c: var(--k1);
+}
+.crow:nth-child(2) {
+  --c: var(--k2);
+}
+.crow:nth-child(3) {
+  --c: var(--k3);
+}
+.crow:hover {
+  color: var(--on-accent);
+}
+.crow strong {
+  font: 400 clamp(24px, 3vw, 34px)/1.15 var(--font-display);
+  letter-spacing: 0;
+}
+.crow .mono {
+  font-size: 14px;
+}
+.crow .arrow {
+  border: 0;
+  background: var(--c);
+  color: var(--on-accent);
+  font: 700 22px/1 var(--font-body);
+}
+.crow:hover .arrow {
+  background: var(--surface-raised);
+}
+.cvbtn {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 18px rgba(var(--shadow-rgb), 0.28));
+  transition: transform 0.4s var(--spring);
+}
+.cvbtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--jungle-teal);
+  clip-path: polygon(
+    95.5% 50%,
+    96.87% 51.23%,
+    98.08% 52.52%,
+    98.99% 53.86%,
+    99.51% 55.2%,
+    99.57% 56.53%,
+    99.17% 57.79%,
+    98.32% 58.96%,
+    97.09% 60.01%,
+    95.59% 60.95%,
+    93.95% 61.78%,
+    94.96% 63.32%,
+    95.79% 64.88%,
+    96.32% 66.4%,
+    96.47% 67.84%,
+    96.19% 69.13%,
+    95.48% 70.25%,
+    94.35% 71.16%,
+    92.9% 71.86%,
+    91.21% 72.37%,
+    89.4% 72.75%,
+    89.98% 74.5%,
+    90.38% 76.22%,
+    90.5% 77.83%,
+    90.27% 79.26%,
+    89.67% 80.44%,
+    88.69% 81.33%,
+    87.37% 81.91%,
+    85.78% 82.22%,
+    84.01% 82.28%,
+    82.17% 82.17%,
+    82.28% 84.01%,
+    82.22% 85.78%,
+    81.91% 87.37%,
+    81.33% 88.69%,
+    80.44% 89.67%,
+    79.26% 90.27%,
+    77.83% 90.5%,
+    76.22% 90.38%,
+    74.5% 89.98%,
+    72.75% 89.4%,
+    72.37% 91.21%,
+    71.86% 92.9%,
+    71.16% 94.35%,
+    70.25% 95.48%,
+    69.13% 96.19%,
+    67.84% 96.47%,
+    66.4% 96.32%,
+    64.88% 95.79%,
+    63.32% 94.96%,
+    61.78% 93.95%,
+    60.95% 95.59%,
+    60.01% 97.09%,
+    58.96% 98.32%,
+    57.79% 99.17%,
+    56.53% 99.57%,
+    55.2% 99.51%,
+    53.86% 98.99%,
+    52.52% 98.08%,
+    51.23% 96.87%,
+    50% 95.5%,
+    48.77% 96.87%,
+    47.48% 98.08%,
+    46.14% 98.99%,
+    44.8% 99.51%,
+    43.47% 99.57%,
+    42.21% 99.17%,
+    41.04% 98.32%,
+    39.99% 97.09%,
+    39.05% 95.59%,
+    38.22% 93.95%,
+    36.68% 94.96%,
+    35.12% 95.79%,
+    33.6% 96.32%,
+    32.16% 96.47%,
+    30.87% 96.19%,
+    29.75% 95.48%,
+    28.84% 94.35%,
+    28.14% 92.9%,
+    27.63% 91.21%,
+    27.25% 89.4%,
+    25.5% 89.98%,
+    23.78% 90.38%,
+    22.17% 90.5%,
+    20.74% 90.27%,
+    19.56% 89.67%,
+    18.67% 88.69%,
+    18.09% 87.37%,
+    17.78% 85.78%,
+    17.72% 84.01%,
+    17.83% 82.17%,
+    15.99% 82.28%,
+    14.22% 82.22%,
+    12.63% 81.91%,
+    11.31% 81.33%,
+    10.33% 80.44%,
+    9.73% 79.26%,
+    9.5% 77.83%,
+    9.62% 76.22%,
+    10.02% 74.5%,
+    10.6% 72.75%,
+    8.79% 72.37%,
+    7.1% 71.86%,
+    5.65% 71.16%,
+    4.52% 70.25%,
+    3.81% 69.13%,
+    3.53% 67.84%,
+    3.68% 66.4%,
+    4.21% 64.88%,
+    5.04% 63.32%,
+    6.05% 61.78%,
+    4.41% 60.95%,
+    2.91% 60.01%,
+    1.68% 58.96%,
+    0.83% 57.79%,
+    0.43% 56.53%,
+    0.49% 55.2%,
+    1.01% 53.86%,
+    1.92% 52.52%,
+    3.13% 51.23%,
+    4.5% 50%,
+    3.13% 48.77%,
+    1.92% 47.48%,
+    1.01% 46.14%,
+    0.49% 44.8%,
+    0.43% 43.47%,
+    0.83% 42.21%,
+    1.68% 41.04%,
+    2.91% 39.99%,
+    4.41% 39.05%,
+    6.05% 38.22%,
+    5.04% 36.68%,
+    4.21% 35.12%,
+    3.68% 33.6%,
+    3.53% 32.16%,
+    3.81% 30.87%,
+    4.52% 29.75%,
+    5.65% 28.84%,
+    7.1% 28.14%,
+    8.79% 27.63%,
+    10.6% 27.25%,
+    10.02% 25.5%,
+    9.62% 23.78%,
+    9.5% 22.17%,
+    9.73% 20.74%,
+    10.33% 19.56%,
+    11.31% 18.67%,
+    12.63% 18.09%,
+    14.22% 17.78%,
+    15.99% 17.72%,
+    17.83% 17.83%,
+    17.72% 15.99%,
+    17.78% 14.22%,
+    18.09% 12.63%,
+    18.67% 11.31%,
+    19.56% 10.33%,
+    20.74% 9.73%,
+    22.17% 9.5%,
+    23.78% 9.62%,
+    25.5% 10.02%,
+    27.25% 10.6%,
+    27.63% 8.79%,
+    28.14% 7.1%,
+    28.84% 5.65%,
+    29.75% 4.52%,
+    30.87% 3.81%,
+    32.16% 3.53%,
+    33.6% 3.68%,
+    35.12% 4.21%,
+    36.68% 5.04%,
+    38.22% 6.05%,
+    39.05% 4.41%,
+    39.99% 2.91%,
+    41.04% 1.68%,
+    42.21% 0.83%,
+    43.47% 0.43%,
+    44.8% 0.49%,
+    46.14% 1.01%,
+    47.48% 1.92%,
+    48.77% 3.13%,
+    50% 4.5%,
+    51.23% 3.13%,
+    52.52% 1.92%,
+    53.86% 1.01%,
+    55.2% 0.49%,
+    56.53% 0.43%,
+    57.79% 0.83%,
+    58.96% 1.68%,
+    60.01% 2.91%,
+    60.95% 4.41%,
+    61.78% 6.05%,
+    63.32% 5.04%,
+    64.88% 4.21%,
+    66.4% 3.68%,
+    67.84% 3.53%,
+    69.13% 3.81%,
+    70.25% 4.52%,
+    71.16% 5.65%,
+    71.86% 7.1%,
+    72.37% 8.79%,
+    72.75% 10.6%,
+    74.5% 10.02%,
+    76.22% 9.62%,
+    77.83% 9.5%,
+    79.26% 9.73%,
+    80.44% 10.33%,
+    81.33% 11.31%,
+    81.91% 12.63%,
+    82.22% 14.22%,
+    82.28% 15.99%,
+    82.17% 17.83%,
+    84.01% 17.72%,
+    85.78% 17.78%,
+    87.37% 18.09%,
+    88.69% 18.67%,
+    89.67% 19.56%,
+    90.27% 20.74%,
+    90.5% 22.17%,
+    90.38% 23.78%,
+    89.98% 25.5%,
+    89.4% 27.25%,
+    91.21% 27.63%,
+    92.9% 28.14%,
+    94.35% 28.84%,
+    95.48% 29.75%,
+    96.19% 30.87%,
+    96.47% 32.16%,
+    96.32% 33.6%,
+    95.79% 35.12%,
+    94.96% 36.68%,
+    93.95% 38.22%,
+    95.59% 39.05%,
+    97.09% 39.99%,
+    98.32% 41.04%,
+    99.17% 42.21%,
+    99.57% 43.47%,
+    99.51% 44.8%,
+    98.99% 46.14%,
+    98.08% 47.48%,
+    96.87% 48.77%
+  );
+}
+.cvbtn:hover {
+  box-shadow: none;
+  transform: rotate(-6deg) scale(1.03);
+}
+.cvbtn svg {
+  z-index: 1;
+}
+.cvbtn text {
+  font: 800 15px var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: none;
+}
+.cvbtn b {
+  z-index: 1;
+  border: 0;
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: 800 46px/1 var(--font-body);
+  box-shadow: 0 8px 12px -6px rgba(42, 57, 50, 0.4);
+}
+@media (max-width: 480px) {
+  .crows {
+    gap: 10px;
+  }
+  .crow {
+    padding: 18px 18px;
+    gap: 12px;
+    border-radius: 24px;
+  }
+  .crow strong {
+    font-size: clamp(15px, 4.9vw, 24px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .crow .arrow {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    font-size: 18px;
+  }
+  .crow .mono {
+    font-size: 12px;
+  }
+}

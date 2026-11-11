@@ -1,0 +1,97 @@
+/* ==========================================================================
+   marquee.css
+   Bandes de texte défilantes (js/marquee.js).
+   ========================================================================== */
+
+.marquee {
+  overflow: hidden;
+  border-block: var(--bw) solid var(--ink);
+  background: var(--c, var(--pastel-pink));
+  color: var(--on-accent);
+  padding: 18px 0;
+}
+.marquee--m {
+  --c: var(--jungle-teal);
+}
+.marquee--c {
+  --c: var(--cherry-blossom);
+}
+.marquee--k {
+  --c: var(--alabaster);
+  color: var(--on-accent);
+}
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+.marquee__track span {
+  font: 800 72px/1 var(--font-display);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.marquee__track b {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  background: currentColor;
+  clip-path: polygon(
+    50% 0,
+    61% 22%,
+    85% 15%,
+    78% 39%,
+    100% 50%,
+    78% 61%,
+    85% 85%,
+    61% 78%,
+    50% 100%,
+    39% 78%,
+    15% 85%,
+    22% 61%,
+    0 50%,
+    22% 39%,
+    15% 15%,
+    39% 22%
+  );
+  animation: spin 8s linear infinite;
+}
+/* Marquee : des bandes dentelées aux ciseaux cranteurs */
+.marquee,
+.marquee--k {
+  --c: var(--cherry-blossom);
+  border: 0;
+  color: var(--on-accent);
+  padding: 40px 0;
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      50% 100%/30px 51% repeat-x,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50%
+      0/30px 51% repeat-x;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      50% 100%/30px 51% repeat-x,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50%
+      0/30px 51% repeat-x;
+}
+.marquee--k {
+  --c: var(--jungle-teal);
+}
+.marquee__track span {
+  font: 400 clamp(40px, 5vw, 64px)/1 var(--font-display);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.marquee__track b {
+  width: 34px;
+  height: 34px;
+  background: var(--surface-raised);
+  animation: spin 12s linear infinite;
+}
+
+/* Espace autour des deux bandes défilantes */
+.band {
+  margin-top: var(--space-8);
+}

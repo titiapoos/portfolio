@@ -1,0 +1,13 @@
+/* ==========================================================================
+   footer.css
+   Pied de page.
+   ========================================================================== */
+
+.foot .slug {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding: 0 4px var(--space-6);
+}

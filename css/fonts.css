@@ -1,0 +1,14 @@
+/* Polices : Bagel Fat One pour les titres, Hanken Grotesk pour le texte.
+   Les fichiers sont dans assets/fonts, le site fonctionne sans connexion. */
+@font-face {
+  font-family: "Bagel Fat One";
+  src: url("../assets/fonts/bagel-fat-one.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("../assets/fonts/hanken-grotesk-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}

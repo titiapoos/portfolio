@@ -1,0 +1,636 @@
+/* ==========================================================================
+   cv.css
+   Parcours (CV) : deux colonnes de cartes, chemin SVG, pion et barre d'XP
+   (js/cv.js). Sur tout écran, le bloc reste épinglé le temps du parcours.
+   ========================================================================== */
+
+.cv {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-7);
+  padding: 0 0 150px;
+}
+.cv__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+.cv__track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cv__trail {
+  fill: none;
+  stroke: var(--cherry-blossom);
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cv__edge {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 20;
+  stroke-linecap: round;
+}
+.cv__anchor {
+  fill: var(--surface);
+  stroke: var(--ink);
+  stroke-width: 3;
+  transition: fill 0.3s;
+}
+.cv__anchor.is-lit {
+  fill: var(--cherry-blossom);
+}
+.cv__handle {
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+  fill: none;
+}
+.cv__hdot {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+.pawn__shadow {
+  fill: var(--ink);
+  opacity: 0.18;
+}
+.pawn__body {
+  fill: var(--pastel-pink);
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.pawn__bob {
+  animation: pawn 900ms ease-in-out infinite;
+}
+.cv--rot .pawn__bob {
+  animation: none;
+}
+.pop {
+  font: 800 20px var(--font-display);
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--pastel-pink);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cv__goal {
+  fill: var(--pastel-pink);
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.pop.go {
+  animation: pop 1000ms var(--ease);
+}
+.cv__col {
+  position: relative;
+  z-index: 1;
+}
+.cv__col--school {
+  padding-left: 76px;
+  --c: var(--cherry-blossom);
+}
+.cv__col--pro {
+  padding-right: 76px;
+  --c: var(--jungle-teal);
+}
+.cv__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+.cv__title .chip {
+  align-self: flex-start;
+}
+.cv__col--pro .cv__title {
+  align-items: flex-end;
+  text-align: right;
+}
+.cv__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.cv__col--pro .cv__list {
+  flex-direction: column-reverse;
+}
+.cv__item {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 900ms var(--spring);
+}
+.js .cv__item {
+  transform: perspective(1100px) rotateY(180deg);
+}
+.js .cv__item.is-lit {
+  transform: perspective(1100px) rotateY(0);
+}
+.rm .cv__item {
+  transform: none !important;
+}
+.cv__front {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-5);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-pop);
+  backface-visibility: hidden;
+}
+.cv__lvl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.cv__lvl .mono {
+  white-space: nowrap;
+}
+.cv__lvl .chip {
+  white-space: nowrap;
+  min-height: 30px;
+  padding: 0 12px;
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--c);
+  color: var(--on-accent);
+}
+.cv__back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius-lg);
+  background-color: var(--sand);
+  background-image: radial-gradient(var(--c) 3px, transparent 3.6px);
+  background-size: 18px 18px;
+  color: var(--on-accent);
+  font: 800 56px/1 var(--font-display);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+.cv__back span {
+  padding: 4px 18px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--sand);
+}
+.cv__ctl {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 8px 18px 8px 8px;
+  background: var(--surface-raised);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pop);
+}
+.cv[data-mode="scroll"] .cv__ctl {
+  display: none;
+}
+.cv[data-mode="scroll"] {
+  padding-bottom: 80px;
+}
+.cv__xp .mono {
+  color: var(--ink);
+}
+.cv__ctl button {
+  min-height: 36px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--surface);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+.cv__ctl input {
+  width: 150px;
+  accent-color: var(--jungle-teal);
+}
+.cv__xp {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.cv__bar {
+  width: 110px;
+  height: 12px;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--surface);
+}
+.cv__bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--jungle-teal);
+}
+@media (max-width: 700px) {
+  .cv {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-6);
+    padding-bottom: 40px;
+  }
+  .cv__col--school,
+  .cv__col--pro {
+    padding-left: 56px;
+    padding-right: 0;
+  }
+  .cv__col--pro .cv__title {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .cv__col--pro .cv__list {
+    flex-direction: column;
+  }
+  .cv__ctl {
+    display: none;
+  }
+  .cv__front {
+    padding: var(--space-4);
+  }
+}
+.cv__trail--b {
+  stroke: var(--jungle-teal);
+}
+.cv__anchor--pro.is-lit {
+  fill: var(--jungle-teal);
+}
+.cv__hint {
+  display: none;
+  font: 500 12px/16px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+/* CV sur grand écran : même architecture (école à gauche, pro à droite), mais le tracé serpente entre les rangées.
+   Il passe au-dessus des deux premières cartes, redescend à droite, repasse entre les rangées vers la gauche, et ainsi de suite.
+   En mode défilement, la section reste collée (.cv-stick) tant que le pion n'est pas arrivé. */
+.cv-sec {
+  --cv-top: 96px;
+}
+.cv-sec.is-snake .sec-head {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+  min-height: 58px;
+}
+.cv-sec.is-snake .sec-head h1 {
+  font-size: 56px;
+  line-height: 58px;
+}
+.cv-sec.is-lock {
+  scroll-margin-top: calc(var(--cv-top) - var(--space-8));
+}
+.cv-sec.is-lock .cv-stick {
+  position: sticky;
+  top: var(--cv-top);
+  max-height: calc(100vh - var(--cv-top) - 72px);
+  max-height: calc(100svh - var(--cv-top) - 72px);
+  clip-path: inset(0 -24px);
+}
+.cv-sec.is-lock .sec-head {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 0;
+  padding-bottom: var(--space-4);
+  background: var(--sec-bg, var(--surface));
+}
+.cv-sec.is-lock .sec-head::after,
+.cv-sec.is-lock .cv-stick::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22px;
+  pointer-events: none;
+}
+.cv-sec.is-lock .sec-head::after {
+  top: 100%;
+  background: linear-gradient(var(--sec-bg, var(--surface)), transparent);
+}
+.cv-sec.is-lock .cv-stick::after {
+  bottom: 0;
+  z-index: 4;
+  background: linear-gradient(transparent, var(--sec-bg, var(--surface)));
+}
+.cv--snake {
+  --G: 64px;
+  row-gap: var(--G);
+  padding: 0 76px calc(var(--G) / 2 + 40px);
+}
+.cv--snake[data-mode="auto"] {
+  padding-bottom: 150px;
+}
+.cv--snake .cv__col,
+.cv--snake .cv__list {
+  display: contents;
+}
+.cv--snake .cv__title {
+  grid-row: 1;
+  margin: 0;
+}
+.cv--snake .cv__col--school .cv__title {
+  grid-column: 1;
+}
+.cv--snake .cv__col--pro .cv__title {
+  grid-column: 2;
+}
+.cv--snake .cv__col--pro .cv__title .chip {
+  align-self: flex-end;
+}
+.cv--snake .cv__item {
+  display: flex;
+  min-width: 0;
+  grid-row: calc(var(--k, 0) + 2);
+}
+.cv--snake .cv__col--school .cv__item {
+  grid-column: 1;
+}
+.cv--snake .cv__col--pro .cv__item {
+  grid-column: 2;
+}
+.cv--snake .cv__front {
+  flex: 1;
+}
+.cv-sec.is-lock .sec-head .cv__ctl {
+  display: flex;
+  position: static;
+  transform: none;
+  margin-left: auto;
+  padding: 8px 16px;
+  gap: var(--space-4);
+}
+.cv-sec.is-lock .cv__play,
+.cv-sec.is-lock .cv__scrub {
+  display: none;
+}
+.cv-sec.is-lock .cv__hint {
+  display: inline;
+}
+.cv__core {
+  display: none;
+  fill: none;
+}
+/* CV verrouillé sur tablette et mobile : l'en-tête garde le titre et le compteur sur une ligne compacte */
+.cv-sec.is-lock:not(.is-snake) .sec-head {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding-bottom: var(--space-3);
+}
+.cv-sec.is-lock:not(.is-snake) .sec-head .cv__ctl {
+  margin: 0;
+  width: 100%;
+  justify-content: space-between;
+  padding: 6px 14px;
+  gap: var(--space-3);
+}
+.cv-sec.is-lock:not(.is-snake) .cv__xp {
+  white-space: nowrap;
+}
+.cv-sec.is-lock:not(.is-snake) .cv__bar {
+  flex: 1;
+  width: auto;
+  min-width: 36px;
+}
+.cv-sec.is-lock:not(.is-snake) .cv__hint {
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+@media (max-width: 360px) {
+  .cv-sec.is-lock:not(.is-snake) .cv__hint {
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+}
+@media (max-width: 760px) {
+  .cv-sec {
+    --cv-top: 20px;
+  }
+}
+:root[data-nav="side"] .cv-sec,
+:root[data-nav="bottom"] .cv-sec {
+  --cv-top: 32px;
+}
+/* CV : une ligne de découpe pointillée, des ciseaux qui tournent avec le tracé */
+.cv-sec {
+  --sec-bg: var(--surface);
+}
+.cv-sec.is-snake .sec-head h1 {
+  font-size: 50px;
+  line-height: 56px;
+}
+.cv__edge {
+  stroke: var(--surface-raised);
+  stroke-width: 40;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 6px 8px rgba(var(--shadow-rgb), 0.22));
+}
+.cv__track {
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 13;
+  opacity: 0.6;
+}
+.cv__trail {
+  stroke: var(--cherry-blossom);
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+.cv__trail--b {
+  stroke: var(--jungle-teal);
+}
+.cv__handle,
+.cv__hdot {
+  display: none;
+}
+.cv__anchor {
+  fill: var(--surface-raised);
+  stroke: var(--ink);
+  stroke-width: 3.5;
+}
+.cv__anchor.is-lit {
+  fill: var(--cherry-blossom);
+}
+.cv__anchor--pro.is-lit {
+  fill: var(--jungle-teal);
+}
+.cv__goal {
+  fill: var(--jungle-teal);
+  stroke: var(--ink);
+  stroke-width: 3.5;
+}
+.mv-a {
+  fill: var(--surface-raised);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.mv-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.mv-lamp {
+  fill: var(--ink);
+  stroke: none;
+}
+.pawn__bob {
+  transform: scale(1.3);
+}
+.sc {
+  transform-origin: 0 0;
+  transform-box: view-box;
+}
+.sc--a .mv-c {
+  fill: var(--cherry-blossom);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.sc--b .mv-c {
+  fill: var(--jungle-teal);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.sc--a {
+  animation: snipa 0.6s ease-in-out infinite;
+}
+.sc--b {
+  animation: snipb 0.6s ease-in-out infinite;
+}
+@keyframes snipa {
+  0%,
+  100% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+@keyframes snipb {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+.pop {
+  font: 400 26px var(--font-display);
+  fill: var(--ink);
+  stroke: var(--surface-raised);
+}
+.cv__col--school {
+  --c: var(--cherry-blossom);
+}
+.cv__col--pro {
+  --c: var(--jungle-teal);
+}
+.cv__title .chip {
+  font-size: 14px;
+}
+.cv__front {
+  border-radius: 26px;
+  box-shadow: var(--shadow-pop);
+  padding: var(--space-5) 28px;
+}
+.cv__lvl .chip {
+  background: var(--c);
+  color: var(--on-accent);
+  min-height: 30px;
+  padding: 0 14px;
+  font: 800 13px/1 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+  box-shadow: none;
+}
+.cv__lvl .chip .lv-w {
+  display: none;
+}
+.cv__lvl .chip::before {
+  content: "Étape";
+  margin-right: 0.35em;
+}
+.cv__back {
+  border: 0;
+  border-radius: 26px;
+  background: var(--c);
+  background-image: none;
+  color: var(--on-accent);
+  font: 400 60px/1 var(--font-display);
+  outline: 3px dashed rgba(255, 252, 251, 0.85);
+  outline-offset: -14px;
+}
+.cv__back span {
+  background: none;
+  padding: 0;
+}
+.cv__ctl {
+  --bw: 0px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-pop);
+}
+.cv__ctl button {
+  background: var(--ink);
+  color: var(--surface-raised);
+}
+:root[data-theme="dark"] .cv__ctl button {
+  background: var(--jungle-teal);
+  color: var(--on-accent);
+}
+.cv__bar {
+  border: 0;
+  background: var(--surface-sunken);
+  height: 12px;
+}
+.cv__bar i {
+  background: var(--cherry-blossom);
+}
+.cv__hint {
+  font: 700 14px/20px var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+/* Couleur par étape, quelle que soit la colonne : rose pour l'école, vert pour l'expérience */
+.cv__item--school {
+  --c: var(--cherry-blossom);
+}
+.cv__item--pro {
+  --c: var(--jungle-teal);
+}
